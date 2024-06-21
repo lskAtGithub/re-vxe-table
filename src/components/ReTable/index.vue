@@ -7,8 +7,20 @@
           :key="item.field || item.title || 'vxeTableColumn' + index"
           v-bind="item"
         >
-          <template v-slot="{ row }">
-            {{ row[item.field] || '' }}
+          <!-- 插槽 -->
+          <template v-slot="scope" v-if="item.slotName">
+            <slot :name="item.slotName" :slot-scope="scope"></slot>
+          </template>
+          <!-- 根据判断做出显示 -->
+          <template
+            v-slot="{ row }"
+            v-else-if="item.format && typeof item.format == 'function'"
+          >
+            {{ item.format(row) }}
+          </template>
+          <!-- 默认显示 -->
+          <template v-else v-slot="{ row }">
+            {{ row[item.field] || options.rowFillText }}
           </template>
         </vxe-table-column>
       </vxe-table>
@@ -36,6 +48,12 @@ const isNotUndefined = (value) => value !== undefined
 export default {
   name: 'ReTable',
   props: {
+    options: {
+      type: Object,
+      default: () => ({
+        rowFillText: ''
+      })
+    },
     columns: {
       type: Array,
       default: () => []

@@ -7,15 +7,15 @@
 <script>
 import ReTable from '../../components/ReTable/index.vue'
 import { data } from '../../dataSource/table-data'
-import { columns } from './constant'
+import { getColumns } from './constant'
 
 export default {
   name: 'HomeRoute',
   components: { ReTable },
   data() {
     return {
+      columns: getColumns(this),
       tableData: [],
-      columns,
       pagination: {
         page: 1,
         pages: 50,
