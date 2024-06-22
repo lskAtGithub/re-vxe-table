@@ -1,0 +1,16 @@
+html,
+body::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+html,
+body::-webkit-scrollbar-thumb {
+  background-color: #ccc; /* 滑块颜色 */
+  min-height: 50px; /* 设置滑块的最小高度，使其变短 */
+  border-radius: 5px; /* 滑块的圆角 */
+}
+
+html,
+body::-webkit-scrollbar-track {
+  background-color: #fff; /* 轨道颜色 */
+}

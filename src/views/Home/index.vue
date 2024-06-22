@@ -1,39 +1,48 @@
 <template>
   <div class="container">
-    <re-table :columns="columns" :data="tableData"></re-table>
+    <div class="chunk" v-for="(item, index) in tableComponents" :key="index">
+      <h2>{{ item.title }}</h2>
+      <component :is="item.componentName"></component>
+    </div>
   </div>
 </template>
 
 <script>
-import ReTable from '../../components/ReTable/index.vue'
-import { data } from '../../dataSource/table-data'
-import { getColumns } from './constant'
+import DefaultTable from './components/Default/index.vue'
 
 export default {
   name: 'HomeRoute',
-  components: { ReTable },
+  components: { DefaultTable },
   data() {
     return {
-      columns: getColumns(this),
-      tableData: [],
-      pagination: {
-        page: 1,
-        pages: 50,
-        total: 0
-      }
+      tableComponents: [
+        { title: '基础表格', componentName: 'DefaultTable' },
+        { title: '复杂表格', componentName: 'DefaultTable' },
+        { title: '复杂表格', componentName: 'DefaultTable' },
+      ]
     }
-  },
-  mounted() {
-    setTimeout(() => {
-      this.tableData = data
-    }, 3000)
   }
 }
 </script>
 
 <style scoped>
 .container {
-  width: 80%;
-  margin: 50px auto 20px;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  box-sizing: border-box;
+  padding: 30px 50px;
+  background: #d2d2d2;
+}
+.chunk {
+  background-color: #fff;
+  border-radius: 5px;
+  margin: 20px;
+  padding: 20px 40px 60px;
+}
+
+.container::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 </style>
