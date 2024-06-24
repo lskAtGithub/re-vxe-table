@@ -5,7 +5,8 @@
     :options="{ rowFillText: '-' }"
     :columns="columns"
     :data="tableData"
-    width="200px"
+    :autoFunc="handleInit"
+    :pagination="search"
   ></re-table>
 </template>
 
@@ -17,13 +18,30 @@ export default {
   name: 'DefaultTable',
   data() {
     return {
-      columns: getColumns(this),
+      columns: [],
       tableData: data,
-      pagination: {
+      sexList: [],
+      search: {
+        name: '',
+        age: '',
+        sexValue: '',
         page: 1,
         pages: 50,
-        total: 0
+        total: 13
       }
+    }
+  },
+  mounted() {
+    this.columns = getColumns(this)
+    const res = [
+      { value: 1, label: 'man' },
+      { value: 2, label: 'woman' }
+    ]
+    this.sexList.push(...res)
+  },
+  methods: {
+    handleInit(params) {
+      Object.assign(this.search, params)
     }
   }
 }
