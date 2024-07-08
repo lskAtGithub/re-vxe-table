@@ -34,13 +34,10 @@
 
           <!-- 插槽 -->
           <template v-slot="scope" v-if="item.slotName">
-            <slot :name="item.slotName" :slot-scope="scope"></slot>
+            <slot :name="item.slotName" :scope="{ ...scope }"></slot>
           </template>
           <!-- 标签 -->
-          <template
-            v-slot="{ row }"
-            v-else-if="item.tag"
-          >
+          <template v-slot="{ row }" v-else-if="item.tag">
             <el-tag v-bind="item.tagOption">{{ row[item.field] }}</el-tag>
           </template>
           <!-- 传入 format 函数来决定显示的数据 -->

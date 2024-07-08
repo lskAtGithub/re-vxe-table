@@ -6,8 +6,14 @@
     :columns="columns"
     :data="tableData"
     :autoFunc="handleInit"
-    :pagination="search"
-  ></re-table>
+    :pagination="searchParams"
+  >
+    <template #role="scope">
+      <div style="color: red" @click="getScope(scope)">
+        this is role slot: 
+      </div>
+    </template>
+  </re-table>
 </template>
 
 <script>
@@ -21,7 +27,7 @@ export default {
       columns: [],
       tableData: data,
       sexList: [],
-      search: {
+      searchParams: {
         name: '',
         age: '',
         sexValue: '',
@@ -41,7 +47,10 @@ export default {
   },
   methods: {
     handleInit(params) {
-      Object.assign(this.search, params)
+      Object.assign(this.searchParams, params)
+    },
+    getScope(scope) {
+      console.log(scope)
     }
   }
 }
